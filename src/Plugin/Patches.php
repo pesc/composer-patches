@@ -435,14 +435,26 @@ class Patches implements PluginInterface, EventSubscriberInterface, Capable
             foreach ($patch_levels as $patch_level) {
                 // --no-backup-if-mismatch here is a hack that fixes some
                 // differences between how patch works on windows and unix.
-                if ($patched = $this->executeCommand(
-                    "patch %s --no-backup-if-mismatch -d %s < %s",
-                    $patch_level,
-                    $install_path,
-                    $filename
-                )
-                ) {
-                    break;
+                if (PHP_OS_FAMILY == 'BSD') {
+                    if ($patched = $this->executeCommand(
+                        "patch %s --no-backup-if-mismatch -d %s < %s",
+                        $patch_level,
+                        $install_path,
+                        $filename
+                    )
+                    ) {
+                        break;
+                    }
+                } else {
+                    if ($patched = $this->executeCommand(
+                        "patch %s --no-backup-if-mismatch -d %s < %s",
+                        $patch_level,
+                        $install_path,
+                        $filename
+                    )
+                    ) {
+                        break;
+                    }
                 }
             }
         }
