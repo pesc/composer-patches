@@ -451,6 +451,7 @@ class Patches implements PluginInterface, EventSubscriberInterface, Capable
                     $filename
                 )
                 ) {
+                    var_dump($patched);
                     break;
                 }
             }
