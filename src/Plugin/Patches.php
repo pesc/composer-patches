@@ -432,14 +432,15 @@ class Patches implements PluginInterface, EventSubscriberInterface, Capable
         // In some rare cases, git will fail to apply a patch, fallback to using
         // the 'patch' command.
         if (!$patched) {
+            // This is a workaround for the outdated patch version on BSD
+            // systems which doesn't support this option -> use posix then.
+            // --no-backup-if-mismatch here is a hack that fixes some
+            // differences between how patch works on windows and unix.
             $patch_options = '--no-backup-if-mismatch -d ';
             if (PHP_OS_FAMILY == 'BSD') {
                 $patch_options = '--posix --batch -d ';
             }
             foreach ($patch_levels as $patch_level) {
-                // --no-backup-if-mismatch here is a hack that fixes some
-                // differences between how patch works on windows and unix.
-                echo  "patch %s %s %s < %s", $patch_level, $patch_options, $install_path, $filename;
                 if ($patched = $this->executeCommand(
                     "patch %s %s %s < %s",
                     $patch_level,
