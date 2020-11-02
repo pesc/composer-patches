@@ -441,6 +441,8 @@ class Patches implements PluginInterface, EventSubscriberInterface, Capable
                 $patch_options = ' --posix --batch -d ';
             }
             foreach ($patch_levels as $patch_level) {
+                $format = 'patch %s %s %s < %s\n';
+                echo sprintf($format, $patch_level, $patch_options, $install_path, $filename);
                 if ($patched = $this->executeCommand(
                     "patch %s %s %s < %s",
                     $patch_level,
