@@ -439,7 +439,7 @@ class Patches implements PluginInterface, EventSubscriberInterface, Capable
             foreach ($patch_levels as $patch_level) {
                 // --no-backup-if-mismatch here is a hack that fixes some
                 // differences between how patch works on windows and unix.
-                echo "{$patch_options}done";
+                echo  "patch %s %s %s < %s", $patch_level, $patch_options, $install_path, $filename;
                 if ($patched = $this->executeCommand(
                     "patch %s %s %s < %s",
                     $patch_level,
