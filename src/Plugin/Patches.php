@@ -444,9 +444,8 @@ class Patches implements PluginInterface, EventSubscriberInterface, Capable
                 $format = 'patch %s %s %s < %s\n';
                 echo sprintf($format, $patch_level, $patch_options, $install_path, $filename);
                 if ($patched = $this->executeCommand(
-                    "patch %s %s %s < %s",
+                    "patch %s --no-backup-if-mismatch -d %s < %s",
                     $patch_level,
-                    $patch_options,
                     $install_path,
                     $filename
                 )
