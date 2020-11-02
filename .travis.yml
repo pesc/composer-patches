@@ -1,6 +1,6 @@
 language: php
 os: linux
-dist: focal
+dist: xenial
 
 php:
   - '7.2'
