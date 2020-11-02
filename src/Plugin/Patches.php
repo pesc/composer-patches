@@ -432,9 +432,9 @@ class Patches implements PluginInterface, EventSubscriberInterface, Capable
         // In some rare cases, git will fail to apply a patch, fallback to using
         // the 'patch' command.
         if (!$patched) {
-            $patch_options = '--no-backup-if-mismatch -d';
+            $patch_options = '--no-backup-if-mismatch -d ';
             if (PHP_OS_FAMILY == 'BSD') {
-                $patch_options = '--posix --batch -d';
+                $patch_options = '--posix --batch -d ';
             }
             foreach ($patch_levels as $patch_level) {
                 // --no-backup-if-mismatch here is a hack that fixes some
